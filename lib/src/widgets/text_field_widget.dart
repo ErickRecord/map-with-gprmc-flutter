@@ -1,53 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:map/src/provider/home_provider.dart';
+import 'package:map/src/tools/input_decorations.dart';
+import 'package:provider/provider.dart';
 
 class TextFieldWidget extends StatelessWidget {
-  final TextInputAction textInputAction;
-  final String fieldName;
   final TextEditingController controller;
-  const TextFieldWidget(
-      {super.key,
-      required this.controller,
-      required this.fieldName,
-      required this.textInputAction});
+  const TextFieldWidget({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 10),
       child: TextFormField(
-        validator: (value) => validator(value!, fieldName),
-        controller: controller,
-        cursorColor: Colors.green,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        textInputAction: textInputAction,
-        keyboardType: TextInputType.number,
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Colors.white,
-          border: const OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.all(Radius.circular(5)),
-          ),
-          contentPadding: EdgeInsets.zero,
-          prefixIcon: const Padding(
-            padding: EdgeInsets.all(5),
-            child: Icon(Icons.location_on_outlined, color: Colors.green,),
-          ),
-          
-          errorStyle: const TextStyle(fontWeight: FontWeight.bold),
-          hintText: fieldName,
-        ),
-      ),
+          validator: (value) => validator(value!, context),
+          controller: controller,
+          cursorColor: Colors.green,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          textInputAction: TextInputAction.done,
+          keyboardType: TextInputType.number,
+          decoration: InputDecorations.defaultInput(r"$GPRMC")),
     );
   }
 
-  String? validator(String value, String fieldName) {
+  String? validator(String value, BuildContext context) {
     if (value.isEmpty) {
-      return "La $fieldName no va vacia";
+      return "El GPRMC no va vacio";
     }
-    if (!RegExp(r'^-?\d+(\.\d+)?$').hasMatch(value)) {
-      return "Solo se aceptan numeros";
+    if (context.read<HomeProvider>().ubication(value) == null) {
+      return "El valor ingresado no es GPRMC";
     }
+    // if (!RegExp(r'^-?\d+(\.\d+)?$').hasMatch(value)) {
+    //   return "Solo se aceptan numeros";
+    // }
     return null;
   }
 }

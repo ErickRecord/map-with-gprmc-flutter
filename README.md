@@ -1,8 +1,26 @@
-# map
+# Configuration
 
-Map
+In ``` android/app/src/main/AndroidManifest.xml ``` we need to place a google maps API KEY.
 
-## Getting Started
+In ``` ios/Runner/AppDelegate.m ``` we need to place a google maps API KEY.
+
+In ``` ios/Runner/AppDelegate.swift ``` we need to place a google maps API KEY.
+
+
+# Home screen
+
+![Home screen](screenshots/1.png)
+
+# Map type
+![Map Type](screenshots/2.png)
+
+# GPRMC Modal
+![GPRMC Modal](screenshots/3.png)
+
+# Graphed location
+![Graphed location](screenshots/4.png)
+![Graphed location](screenshots/5.png)
+
 
 This project is a starting point for a Flutter application.
 

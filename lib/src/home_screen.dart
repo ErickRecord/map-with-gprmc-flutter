@@ -49,6 +49,13 @@ class _MapState extends State<HomeScreen> {
           ),
         ],
       ),
+      bottomNavigationBar: (provider.latLongTime?["dateTime"] != null)
+          ? Text(
+              "Fecha de consulta:\n ${provider.latLongTime!["dateTime"]}",
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            )
+          : null,
     );
   }
 }
